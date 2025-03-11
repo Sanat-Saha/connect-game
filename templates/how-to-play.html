@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Play - Connect Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-4xl font-bold">How to Play Connect Game</h1>
+            <a href="/" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">Back to Game</a>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-8 space-y-8">
+            <!-- Game Overview -->
+            <section>
+                <h2 class="text-2xl font-semibold mb-4">Game Overview</h2>
+                <p class="text-gray-700 leading-relaxed">
+                    Connect Game is a word-guessing game where players work together to guess a secret word chosen by the host. 
+                    The word is revealed one character at a time through clever hints and guesses.
+                </p>
+            </section>
+
+            <!-- Player Roles -->
+            <section>
+                <h2 class="text-2xl font-semibold mb-4">Player Roles</h2>
+                <div class="space-y-4">
+                    <div class="bg-yellow-50 p-4 rounded">
+                        <h3 class="font-semibold text-yellow-800">Host</h3>
+                        <p class="text-yellow-700">
+                            - Creates the game and chooses the secret word<br>
+                            - Gets priority to guess when hints are given<br>
+                            - Cannot give hints<br>
+                            - Tries to guess the word before other players
+                        </p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded">
+                        <h3 class="font-semibold text-blue-800">Players</h3>
+                        <p class="text-blue-700">
+                            - Can give hints to help reveal the word<br>
+                            - Can guess after the host's priority window<br>
+                            - Take turns being the hint giver<br>
+                            - Work together to reveal the word
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Game Flow -->
+            <section>
+                <h2 class="text-2xl font-semibold mb-4">How the Game Works</h2>
+                <ol class="list-decimal pl-6 space-y-4 text-gray-700">
+                    <li>The host creates a game and chooses a secret word</li>
+                    <li>The first letter of the word is revealed to all players</li>
+                    <li>Players (except the host) can give hints by:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>Providing a hint word that starts with the revealed characters</li>
+                            <li>Writing a clue to help others guess the hint word</li>
+                        </ul>
+                    </li>
+                    <li>When a hint is given:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>The host gets 10 seconds of priority to guess the hint word</li>
+                            <li>After the priority window, all players can guess</li>
+                        </ul>
+                    </li>
+                    <li>When the hint word is correctly guessed:
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>If guessed by a player (not the host), the next letter of the secret word is revealed</li>
+                            <li>If guessed by the host, no new letter is revealed, but the game continues</li>
+                        </ul>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- Game Rules -->
+            <section>
+                <h2 class="text-2xl font-semibold mb-4">Game Rules</h2>
+                <div class="bg-gray-50 p-6 rounded space-y-3 text-gray-700">
+                    <p>1. The same hint word cannot be used twice in a game</p>
+                    <p>2. Hint words must start with the currently revealed characters of the secret word</p>
+                    <p>3. The host cannot give hints, only guess</p>
+                    <p>4. The current hint giver cannot guess their own hint</p>
+                    <p>5. Players must wait for the host's priority window to end before guessing</p>
+                </div>
+            </section>
+
+            <!-- Winning Conditions -->
+            <section>
+                <h2 class="text-2xl font-semibold mb-4">How to Win</h2>
+                <div class="space-y-4">
+                    <div class="bg-green-50 p-4 rounded">
+                        <p class="text-green-700">The game can end in three ways:</p>
+                        <ul class="list-disc pl-6 mt-2 text-green-700">
+                            <li>A player correctly guesses the secret word</li>
+                            <li>A hint giver provides a hint word that matches the secret word</li>
+                            <li>All characters of the secret word are revealed through correct guesses</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tips -->
+            <section>
+                <h2 class="text-2xl font-semibold mb-4">Tips for Success</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-purple-50 p-4 rounded">
+                        <h3 class="font-semibold text-purple-800 mb-2">For Hint Givers</h3>
+                        <ul class="list-disc pl-6 text-purple-700">
+                            <li>Choose hint words that are related to the secret word</li>
+                            <li>Make your clues clear but not too obvious</li>
+                            <li>Consider the revealed letters when choosing hints</li>
+                        </ul>
+                    </div>
+                    <div class="bg-indigo-50 p-4 rounded">
+                        <h3 class="font-semibold text-indigo-800 mb-2">For Guessers</h3>
+                        <ul class="list-disc pl-6 text-indigo-700">
+                            <li>Pay attention to the pattern of hints</li>
+                            <li>Consider the context of previous guesses</li>
+                            <li>Use the revealed letters to narrow down possibilities</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html> 

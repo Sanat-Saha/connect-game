@@ -1,0 +1,10 @@
+{
+    "python.defaultInterpreterPath": "/usr/local/bin/python3",
+    "python.terminal.activateEnvironment": false,
+    "python.terminal.executeInFileDir": false,
+    "python.terminal.launchArgs": [],
+    "python.terminal.activateEnvInCurrentTerminal": false,
+    "python.pythonPath": "/usr/local/bin/python3",
+    "python.analysis.diagnosticMode": "workspace",
+    "python.experiments.enabled": false
+}
