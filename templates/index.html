@@ -6,55 +6,69 @@
     <title>Connect Game</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media (max-width: 768px) {
+            .game-container {
+                flex-direction: column;
+            }
+            .players-sidebar {
+                width: 100% !important;
+                margin-top: 1rem;
+            }
+        }
+    </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-4xl font-bold">Connect Game</h1>
-            <a href="/how-to-play" class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600">How to Play</a>
+    <div class="container mx-auto px-4 py-4 md:py-8 max-w-6xl">
+        <!-- Header with Responsive Layout -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6 md:mb-8 gap-4">
+            <h1 class="text-3xl md:text-4xl font-bold text-center md:text-left">Connect Game</h1>
+            <a href="/how-to-play" class="w-full md:w-auto bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 text-center">
+                How to Play
+            </a>
         </div>
         
         <!-- Game Creation Form -->
-        <div id="createGameForm" class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Create New Game</h2>
+        <div id="createGameForm" class="max-w-md mx-auto bg-white rounded-lg shadow-md p-4 md:p-6 mb-6 md:mb-8">
+            <h2 class="text-xl md:text-2xl font-semibold mb-4">Create New Game</h2>
             <input type="text" id="hostUsername" placeholder="Enter your username" 
-                   class="w-full p-2 border rounded mb-4">
+                   class="w-full p-3 border rounded mb-4 text-base">
             <input type="text" id="wordInput" placeholder="Enter your word" 
-                   class="w-full p-2 border rounded mb-4">
+                   class="w-full p-3 border rounded mb-4 text-base">
             <button onclick="createGame()" 
-                    class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+                    class="w-full bg-blue-500 text-white py-3 rounded hover:bg-blue-600 text-base">
                 Create Game
             </button>
         </div>
 
         <!-- Join Game Form -->
-        <div id="joinGameForm" class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Join Game</h2>
+        <div id="joinGameForm" class="max-w-md mx-auto bg-white rounded-lg shadow-md p-4 md:p-6 mb-6 md:mb-8">
+            <h2 class="text-xl md:text-2xl font-semibold mb-4">Join Game</h2>
             <input type="text" id="playerUsername" placeholder="Enter your username" 
-                   class="w-full p-2 border rounded mb-4">
+                   class="w-full p-3 border rounded mb-4 text-base">
             <input type="text" id="gameIdInput" placeholder="Enter Game ID" 
-                   class="w-full p-2 border rounded mb-4">
+                   class="w-full p-3 border rounded mb-4 text-base">
             <button onclick="joinGame()" 
-                    class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">
+                    class="w-full bg-green-500 text-white py-3 rounded hover:bg-green-600 text-base">
                 Join Game
             </button>
         </div>
 
-        <!-- Game Area -->
-        <div class="flex gap-8">
+        <!-- Game Area with Responsive Layout -->
+        <div class="game-container flex flex-col md:flex-row gap-4 md:gap-8">
             <!-- Main Game Area -->
-            <div id="gameArea" class="hidden flex-1 bg-white rounded-lg shadow-md p-6">
+            <div id="gameArea" class="hidden flex-1 bg-white rounded-lg shadow-md p-4 md:p-6">
                 <div class="mb-6">
-                    <h2 class="text-2xl font-semibold mb-2">Current Word Progress</h2>
-                    <div id="wordProgress" class="text-3xl text-center font-mono"></div>
+                    <h2 class="text-xl md:text-2xl font-semibold mb-2">Current Word Progress</h2>
+                    <div id="wordProgress" class="text-2xl md:text-3xl text-center font-mono"></div>
                 </div>
 
                 <!-- Game ID Display -->
                 <div id="gameIdDisplay" class="mb-6 text-center bg-blue-50 p-4 rounded">
-                    <h2 class="text-xl font-semibold mb-2">Game ID</h2>
-                    <div class="flex items-center justify-center gap-2">
-                        <code id="gameIdText" class="text-xl font-mono bg-white px-4 py-2 rounded border"></code>
-                        <button onclick="copyGameId()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    <h2 class="text-lg md:text-xl font-semibold mb-2">Game ID</h2>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-2">
+                        <code id="gameIdText" class="text-lg md:text-xl font-mono bg-white px-4 py-2 rounded border w-full md:w-auto text-center"></code>
+                        <button onclick="copyGameId()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full md:w-auto">
                             Copy
                         </button>
                     </div>
@@ -63,14 +77,14 @@
 
                 <!-- Player Role -->
                 <div class="mb-6 text-center">
-                    <div id="playerRole" class="text-lg font-semibold text-blue-600"></div>
+                    <div id="playerRole" class="text-base md:text-lg font-semibold text-blue-600"></div>
                 </div>
 
                 <!-- Timer Section -->
                 <div id="timerSection" class="mb-6 text-center hidden">
                     <div class="bg-blue-100 p-4 rounded">
-                        <h3 class="text-lg font-semibold mb-2">Host's Priority Window</h3>
-                        <div id="timer" class="text-2xl font-bold text-blue-600">10</div>
+                        <h3 class="text-base md:text-lg font-semibold mb-2">Host's Priority Window</h3>
+                        <div id="timer" class="text-xl md:text-2xl font-bold text-blue-600">10</div>
                         <p class="text-sm text-blue-800">
                             <span id="timerMessage">Host has priority to guess...</span>
                         </p>
@@ -79,41 +93,41 @@
 
                 <!-- Hint Section -->
                 <div id="hintSection" class="mb-6">
-                    <h2 class="text-2xl font-semibold mb-2">Give a Hint</h2>
+                    <h2 class="text-xl md:text-2xl font-semibold mb-2">Give a Hint</h2>
                     <div class="bg-yellow-50 p-4 rounded mb-4">
                         <p class="text-sm text-yellow-800">Your hint word must start with the revealed characters.</p>
                     </div>
                     <input type="text" id="hintInput" placeholder="Enter your hint" 
-                           class="w-full p-2 border rounded mb-4">
+                           class="w-full p-3 border rounded mb-4 text-base">
                     <input type="text" id="targetWordInput" placeholder="Enter the word you're hinting at" 
-                           class="w-full p-2 border rounded mb-4">
+                           class="w-full p-3 border rounded mb-4 text-base">
                     <button onclick="submitHint()" 
-                            class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600">
+                            class="w-full bg-yellow-500 text-white py-3 rounded hover:bg-yellow-600 text-base">
                         Submit Hint
                     </button>
                 </div>
 
                 <!-- Guess Section -->
                 <div id="guessSection" class="mb-6">
-                    <h2 class="text-2xl font-semibold mb-2">Make a Guess</h2>
+                    <h2 class="text-xl md:text-2xl font-semibold mb-2">Make a Guess</h2>
                     <input type="text" id="guessInput" placeholder="Enter your guess" 
-                           class="w-full p-2 border rounded mb-4">
+                           class="w-full p-3 border rounded mb-4 text-base">
                     <button onclick="submitGuess()" 
-                            class="w-full bg-purple-500 text-white py-2 rounded hover:bg-purple-600">
+                            class="w-full bg-purple-500 text-white py-3 rounded hover:bg-purple-600 text-base">
                         Submit Guess
                     </button>
                 </div>
 
                 <!-- Game History -->
                 <div>
-                    <h2 class="text-2xl font-semibold mb-2">Game History</h2>
-                    <div id="hintsList" class="space-y-2"></div>
+                    <h2 class="text-xl md:text-2xl font-semibold mb-2">Game History</h2>
+                    <div id="hintsList" class="space-y-2 max-h-[300px] overflow-y-auto"></div>
                 </div>
             </div>
 
-            <!-- Players List -->
-            <div id="playersList" class="hidden w-64 bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-2xl font-semibold mb-4">Players</h2>
+            <!-- Players List Sidebar -->
+            <div id="playersList" class="hidden players-sidebar w-full md:w-64 bg-white rounded-lg shadow-md p-4 md:p-6 sticky top-4">
+                <h2 class="text-xl md:text-2xl font-semibold mb-4">Players</h2>
                 <div id="playersListContent" class="space-y-2"></div>
             </div>
         </div>
